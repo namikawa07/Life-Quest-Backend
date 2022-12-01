@@ -17,12 +17,13 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  host: <%= ENV['DATABASE_HOST'] || 'localhost'  %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: db
+  username: root
+  password: password
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -84,7 +85,3 @@ test:
 production:
   <<: *default
   database: app_production
-  username: animation-app-mysql-user
-  password: <%= Rails.application.credentials.production[:db_password] %>
-  host: localhost
-  socket: /cloudsql/animation-app-cb0ed:asia-northeast1:animation-app-mysql
