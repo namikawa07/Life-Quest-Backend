@@ -1,0 +1,90 @@
+User
+User.all
+Fire
+FirebaseAuthenti
+FirebaseAuthentication.all
+FirebaseAuthentication.
+a
+FirebaseAuthentication
+FirebaseIdToken::Certificates.request
+FirebaseIdToken::Certificates.present?
+exit
+params
+payload.blank?
+exit
+FirebaseIdToken::Certificates.blank?
+FirebaseIdToken::Certificates.true
+FirebaseIdToken::Certificates.present?
+FirebaseIdToken::Certificates.request
+FirebaseIdToken::Certificates.present?
+FirebaseIdToken::Certificates.blank?
+payload.blank?
+FirebaseIdToken::Signature.verify token
+exit
+payload.blank?
+@payload ||= FirebaseIdToken::Signature.verify token
+@payload ||= FirebaseIdToken::Signature.verify token_from_request_headers
+request.headers['Authorization']&.split&.last
+exit
+ENV['FIREBASE_PROJECT_ID']
+exit
+decode(request.headers["Authorization"]&.split&.last)
+request.headers["Authorization"]&.split&.last
+exit
+payload.blank?
+payload.present_
+payload.present?
+payload
+exit
+User.all
+FirebaseAuthetication
+FirebaseAuthetication.all
+FirebaseAuthentication.all
+FirebaseAuthentication.all.user
+FirebaseAuthentication.first.user
+@user
+exit
+@user
+@user.email
+exit
+current_user
+exit
+current_user
+@current_user
+exit
+current_user
+@test
+current_user
+@current_user
+exit
+raise AnimationApp::Error::NotAuthenticated
+AnimationApp::Error::NotAuthenticated
+AnimationApp::Error::NotAuthenticated.new
+raise AnimationApp::Error::NotAuthenticated
+AnimationApp::Error::NotAuthenticated.new
+AnimationApp::Error::NotAuthenticated
+Animationapp::Error::NotAuthenticated
+raise AnimationApp::Error::NotAuthenticated
+raise Animationapp::Error::NotAuthenticated
+raise AnimationApp::Error::NotAuthenticated
+render status:400, json: { status: status, message: '新規登録をしてください' }
+Animationapp::Error::NotAuthenticated
+raise Animationapp::Error::NotAuthenticated
+FirebaseIdToken::Certificates.present?
+current_user
+FirebaseIdToken::Certificates.present?
+data.blank
+data.blank_
+data.blank?
+data
+FirebaseIdToken::Signature.verify token
+token
+data
+request.headers['Authorization']&.split&.last
+data
+current_user
+User
+User.all.count
+User.all
+User.first.update!(self_introduction: 'UUUM株式会社（本社：東京都港区、代表取締役社長CEO：鎌田 和樹、以下、UUUM）は、任天堂株式会社（以下、任天堂）の著作物の取り扱いに関して、従前より包括的許諾を受けておりますが、このたび、業務提携先である吉本興業株式会社（以下、吉本興業）に所属するタレントのYouTubeチャンUUUM株式会社（本社：東京都港区、代表取締役社長CEO：鎌田 和樹、以下、UUUM）は、任天堂株式会社（以下、任天堂）の著作物の取り扱いに関して、従前より包括的許諾を受けておりますが、このたび、業務提携先である吉本興業株式会社（以下、吉本興業）に所属するタレントのYouTubeチャン')
+User.first

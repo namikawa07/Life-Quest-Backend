@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      args:
+        WORKDIR: $WORKDIR
+    stdin_open: true
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: $DATABASE_PASSWORD
+      API_DOMAIN: "localhost:$FRONT_PORT"
+      REDIS_URL: redis://redis:$REDIS_PORT
+    entrypoint: ./wait-for-it.sh db:3306
+    volumes:
+      - .:/$WORKDIR
+      - bundle-data:/usr/local/bundle
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "$API_PORT:$CONTAINER_PORT"
+    networks:
+      - animation-app
+
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    environment:
+      TZ: UTC
+      PGTZ: UTC
+      MYSQL_ROOT_PASSWORD: $DATABASE_PASSWORD
+      MYSQL_DATABASE: $DATABASE_USERNAME
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "$DB_PORT:$DB_PORT"
+    networks:
+      - animation-app
+
+  redis:
+    image: redis:5
+    command: redis-server --appendonly yes
+    ports:
+      - "$REDIS_PORT:$REDIS_PORT"
+    volumes:
+      - redis:/var/lib/redis/data
+    networks:
+      - animation-app
+
+  sidekiq:
+    build:
+      context: .
+      args:
+        WORKDIR: $WORKDIR
+    command: bundle exec sidekiq
+    volumes:
+      - .:/$WORKDIR
+      - bundle-data:/usr/local/bundle
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: redis://redis:$REDIS_PORT
+    networks:
+      - animation-app
+
+  nginx:
+    build: nginx
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    ports:
+      - "$WEB_PORT:$WEB_PORT"
+    depends_on:
+      - api
+    networks:
+      - animation-app
+
+volumes:
+  bundle-data:
+  redis:
+  public-data:
+  tmp-data:
+  mysql-data:
+
+networks:
+  animation-app:
+    name: animation-app
+    external: true
