@@ -1,12 +1,12 @@
 http://localhost:3000/
 
 
-# Task Quest
+# Life Quest
 ## Docker Start
 
 ### dockerのnetworkを作成
 ```
-docker network create taskQuest
+docker network create life-quest
 ```
 
 ### dockerを立ち上げる
@@ -65,3 +65,20 @@ mysql -u root -p　root
 
 パスワードを入れる
 ```
+
+# やることメモ
+ログインがJWT認証されてないのでする。脆弱性について調べて対策する
+更新するとcurrent_userが消えてしまうので消えないようにする
+
+
+
+# コンセプト
+人生をレベルアップさせよう
+# サービス名
+Life Quest
+
+
+### cloneしたらやること
+master.keyとcredentials.ymlファイルを作る
+envのFIREBASE_PROJECT_IDをfirebaseのプロジェクトに対応する値にする
+dockerのnetwork名を変更する

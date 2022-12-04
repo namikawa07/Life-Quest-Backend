@@ -22,7 +22,7 @@ services:
     ports:
       - "$API_PORT:$CONTAINER_PORT"
     networks:
-      - task-quest
+      - life-quest
 
   db:
     platform: linux/x86_64
@@ -37,7 +37,7 @@ services:
     ports:
       - "$DB_PORT:$DB_PORT"
     networks:
-      - task-quest
+      - life-quest
 
   redis:
     image: redis:5
@@ -47,7 +47,7 @@ services:
     volumes:
       - redis:/var/lib/redis/data
     networks:
-      - task-quest
+      - life-quest
 
   sidekiq:
     build:
@@ -64,7 +64,7 @@ services:
     environment:
       REDIS_URL: redis://redis:$REDIS_PORT
     networks:
-      - task-quest
+      - life-quest
 
   nginx:
     build: nginx
@@ -76,7 +76,7 @@ services:
     depends_on:
       - api
     networks:
-      - task-quest
+      - life-quest
 
 volumes:
   bundle-data:
@@ -86,6 +86,6 @@ volumes:
   db-data:
 
 networks:
-  task-quest:
-    name: task-quest
+  life-quest:
+    name: life-quest
     external: true
