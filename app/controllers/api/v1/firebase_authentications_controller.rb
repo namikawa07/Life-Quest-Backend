@@ -19,12 +19,12 @@ module Api
       private
 
       def signin(data)
-        FirebaseAuthentication.find_by(uid: data['user_id'])&.user
+        FirebaseAuthentication.find_by(uid: params[:user_id])&.user
       end
 
       def signup(data)
         user = nil
-        provider = select_provider(data)
+        provider = params[:provider]
         permitted_params = auth_firebase_params
         ActiveRecord::Base.transaction do
           user = create_user(data)
@@ -35,47 +35,34 @@ module Api
 
       def create_user(data)
         User.create!(
-          email: data['email'],
-          uid: data['user_id']
+          email: params[:email],
+          uid: params[:user_id]
         )
       end
 
       def create_firebase_authentication(data, params, provider, created_user_id)
         FirebaseAuthentication.create!(
           user_id: created_user_id,
-          uid: data['user_id'],
-          email: data['email'],
+          uid: params[:user_id],
+          email: params[:email],
           refresh_token: params[:refresh_token],
           access_token: params[:access_token],
           id_token: token,
           sign_in_provider: provider,
           tenant_id: params[:tenant_id],
-          email_verified: data['email_verified']
+          email_verified: params[:email_verified]
         )
       end
-
-      # rubocop:disable Style/HashLikeCase
-      def select_provider(data)
-        case data['firebase']['sign_in_provider']
-        when 'password'
-          'email_with_password'
-        when 'apple.com'
-          'apple'
-        when 'google.com'
-          'google'
-        when 'twitter.com'
-          'twitter'
-        when 'facebook.com'
-          'facebook'
-        end
-      end
-      # rubocop:enable Style/HashLikeCase
 
       def auth_firebase_params
         params.require(:firebase_authentication).permit(
           :access_token,
           :refresh_token,
-          :tenant_id
+          :tenant_id,
+          :provider,
+          :user_id,
+          :email,
+          :email_verified
         )
       end
 
@@ -87,8 +74,9 @@ module Api
         params[:token] || token_from_request_headers
       end
 
+      # FIXME：JWT認証されてないのでする
       def data
-        @data ||= FirebaseIdToken::Signature.verify token
+        @data ||= token
       end
     end
   end
